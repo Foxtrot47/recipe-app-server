@@ -1,0 +1,15 @@
+{
+  "name": "recipe-server",
+  "version": "1.0.0",
+  "description": "API for recipe app",
+  "main": "server.js",
+  "author": "Foxtrot47",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "fastify": "^4.3.0",
+    "mongoose": "^6.5.0"
+  }
+}
