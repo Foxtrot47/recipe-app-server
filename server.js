@@ -42,7 +42,30 @@ fastify.route({
       response.code(404).send("Invalid id");
     }
     return result;
-  }
+  },
+});
+
+fastify.route({
+  method: "GET",
+  url: "/random",
+  schema: {
+    querystring: {
+      type: "object",
+      required: ["limit"],
+      properties: {
+        limit: { type: "number", minimum: 1 },
+      },
+    },
+  },
+  handler: async (request, response) => {
+    let recipes = [];
+    const count = await Recipe.estimatedDocumentCount().exec();
+    for (let i = 0; i < request.query.limit; i++) {
+      let random = Math.floor(Math.random() * count);
+      recipes.push(await Recipe.findOne().skip(random).exec());
+    }
+    return recipes;
+  },
 });
 
 // Run the server!
