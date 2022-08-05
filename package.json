@@ -8,6 +8,7 @@
   "private": false,
   "type": "module",
   "dependencies": {
+    "@fastify/cors": "^8.1.0",
     "dotenv": "^16.0.1",
     "fastify": "^4.3.0",
     "mongoose": "^6.5.0"
