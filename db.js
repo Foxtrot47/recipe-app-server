@@ -8,7 +8,7 @@ mongoose.connect(process.env.DATABSE_URL).catch((err) => {
 });
 
 const recipeSchema = new mongoose.Schema(
-  { _id: "number", name: "string" },
+  { _id: "number", name: "string", slug: "string" },
   { collection: "recipedata" }
 );
 const Recipe = mongoose.model("Recipe", recipeSchema);

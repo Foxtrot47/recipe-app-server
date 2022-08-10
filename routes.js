@@ -1,4 +1,4 @@
-import Recipe from "./db.js"
+import Recipe from "./db.js";
 
 // Declare routes
 const routes = async (server) => {
@@ -18,6 +18,35 @@ const routes = async (server) => {
       const result = await Recipe.findById(request.query.id).exec();
       if (!result || result.length < 1) {
         response.code(404).send("Invalid id");
+      }
+      return result;
+    },
+  });
+
+  server.route({
+    method: "GET",
+    url: "/recipebyslug",
+    schema: {
+      querystring: {
+        type: "object",
+        required: ["slug"],
+        properties: {
+          slug: { type: "string", minLength: 1 },
+        },
+      },
+    },
+    handler: async (request, response) => {
+      const result = await Recipe.find(
+        {
+          slug: request.query.slug,
+        },
+        null,
+        {
+          limit: 1,
+        }
+      ).exec();
+      if (!result || result.length < 1) {
+        response.code(404).send("Invalid slug");
       }
       return result;
     },
@@ -64,7 +93,7 @@ const routes = async (server) => {
         {
           name: regex,
         },
-        "_id name image rating",
+        "_id name slug image rating",
         {
           limit: 5,
         }
