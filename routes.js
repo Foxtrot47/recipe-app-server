@@ -93,7 +93,8 @@ const routes = async (server) => {
       query.name = new RegExp(request.query.q, "i");
       if (request.query.cuisine) query.cuisine = request.query.cuisine;
       if (request.query.keywords) query.keywords = request.query.keywords;
-      if (request.query.category) query.category = request.query.category;
+      if (request.query.mealtypes) query.category = request.query.mealtypes;
+      if (request.query.dietType) query.diet.display = request.query.dietType;
       if (request.query.skillLevel) query.skillLevel = request.query.skillLevel;
       if (request.query.yield) {
         if (request.query.yield === "9+") query.yield = { $gt: 8 };
@@ -140,9 +141,9 @@ const routes = async (server) => {
       if (request.query.sortBy && request.query.sortOrder)
         sort = [[request.query.sortBy, parseInt(request.query.sortOrder)]];
       console.log(query.nutritionalInfo);
-      return await Recipe.find(query, "_id name slug image rating date", {
+      return await Recipe.find(query, "_id name slug image rating date description", {
         limit: 20,
-        offset,
+        skip: offset,
       }).sort(sort);
     },
   });
