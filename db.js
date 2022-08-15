@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import "dotenv/config";
 
 // Intialize connection to database
-mongoose.connect(process.env.DATABSE_URL).catch((err) => {
+mongoose.connect(process.env.DATABASE_URL).catch((err) => {
   console.log(err);
   process.exit(1);
 });
